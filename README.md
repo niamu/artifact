@@ -37,10 +37,3 @@ $ clj -m artifact.deck-decoder "ADCJWkTZX05uwGDCRV4XQGy3QGLmqUBg4GQJgGLGgO7AaABR
   {:id 10354, :count 3}],
  :name "Green/Black Example"}
 ```
-
-## License
-
-Copyright © 2018 Brendon Walsh
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
