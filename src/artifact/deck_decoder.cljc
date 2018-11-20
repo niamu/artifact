@@ -1,6 +1,7 @@
 (ns artifact.deck-decoder
   (:require [clojure.pprint :as pprint]
             [clojure.string :as string]
+            [hickory.core :as hickory]
             #?@(:cljs [[goog.crypt :as crypt]
                        [goog.crypt.base64 :as b64]]))
   #?(:clj (:import [java.util Base64])))
@@ -60,6 +61,14 @@
      (+ prev-card-base
         (read-var-encoded-uint32 header 5 data idx-atom idx-end))]))
 
+(defn- strip-tags
+  [s]
+  (->> (hickory/parse-fragment s)
+       (map hickory/as-hiccup)
+       (map (fn [h] (if-let [[tag attrs content] (and (vector? h) h)]
+                     content h)))
+       string/join))
+
 (defn- parse-deck
   [deck-bytes]
   (let [version-and-heroes (nth deck-bytes 0)
@@ -108,7 +117,8 @@
                             deck-bytes)
                       (take string-length))
                  #?(:clj (-> byte-array (String. "UTF8"))
-                    :cljs (-> clj->js crypt/utf8ByteArrayToString)))
+                    :cljs (-> clj->js crypt/utf8ByteArrayToString))
+                 strip-tags)
              "")}))
 
 (defn decode
