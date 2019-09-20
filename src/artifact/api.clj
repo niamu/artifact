@@ -40,4 +40,7 @@
         (get-in [:card-set :card-list])
         process-cards)))
 
-(map cardset setids)
+(defn -main
+  [& args]
+  (doseq [setid setids]
+    (cardset setid)))

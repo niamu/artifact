@@ -119,4 +119,6 @@
       decode-deck-string
       parse-deck))
 
-(defn -main [deck-code-str] (pprint/pprint (decode deck-code-str)))
+(defn -main
+  [deck-code-str]
+  (pprint/pprint (decode deck-code-str)))
